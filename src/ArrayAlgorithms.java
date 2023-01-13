@@ -199,7 +199,7 @@ public class ArrayAlgorithms
     }
 
     /** Returns true if ANY of the Strings in stringList contain searchStr,
-     *  otherwise, returns false. Your method should NOT be case sensitive, e.g.
+     *  otherwise, returns false. Your method should NOT be case-sensitive, e.g.
      *  searching for "ma" should be found in the String "Maddox" and searching
      *  for "MA" should be found in String "mad"
      *
@@ -409,9 +409,58 @@ public class ArrayAlgorithms
      *  @param numList  original array of numbers; DOES get modified
      */
     public static void shiftNumRightModify(int[] numList, int shiftNum) {
-        for (int i = 1; i <= numList.length - shiftNum; i++) {
+        for (int i = 1; i <= numList.length - (shiftNum % numList.length); i++) {
             shiftLeftModify(numList);
         }
     }
 
+    /** Returns a NEW array of ints that contains all elements of numList in
+     *  reversed order.  For example, given the array {5, 1, 3, 4, 7, 6}, this
+     *  method returns the array {6, 7, 4, 3, 1, 5}.
+     *  Should work with all array lengths (both odd and even).
+     *
+     *  Does NOT mutate (modify) original wordList
+     *  PRECONDITION: numList.length > 0
+     *
+     *  @param numList  original array of numbers; does NOT get modified
+     *  @return  array of ints that contains numList in reversed order
+     */
+    public static int[] reverse(int[] numList) {
+        int[] reversed = new int[numList.length];
+
+        for (int i = 0; i < numList.length; i++) {
+            reversed[i] = numList[numList.length - 1 - i];
+        }
+
+        return reversed;
+    }
+
+    /** Reverses all elements in an array; this method modifies
+     *  the original array and does not return anything (void).
+     *  For example, given the array {5, 1, 3, 4, 7, 6}, this method
+     *  MODIFIES the array to {6, 7, 4, 3, 1, 5}.
+     *  Should work with all array lengths (both odd and even).
+     *
+     *  DOES mutate (modify) numList
+     *  PRECONDITION: numList.length > 0
+     *
+     *  @param numList  original array of numbers; DOES get modified
+     */
+    public static void reverseModify(int[] numList) {
+        int[] reversed = reverse(numList);
+
+        for (int i = 0; i < numList.length; i++) {
+            numList[i] = reversed[i];
+        }
+    }
+
+    public static void reverseModify2(int[] numList) {
+        for (int i = 0; i < numList.length / 2; i++) {
+            int newIdx = numList.length - 1 - i;
+            int replacedNum = numList[newIdx];
+
+            numList[newIdx] = numList[i];
+            numList[i] = replacedNum;
+        }
+    }
 }
